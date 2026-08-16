@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lozan Drama</title>
+  <meta name="description" content="Lozan Drama — Premium Kurdish & English drama, movie and series streaming with subtitles." />
+  <meta name="theme-color" content="#0d0d0d" />
+
+  <!-- Fonts: Inter (LTR) + Vazirmatn (RTL/Kurdish) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- =====================================================================
+       CSS
+       ===================================================================== -->
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root {
+      --bg: #0d0d0d;
+      --bg-2: #121212;
+      --surface: #1e1e1e;
+      --surface-2: #282828;
+      --surface-3: #333333;
+      --border: #2c2c2c;
+      --text: #ffffff;
+      --text-dim: #a0a0a0;
+      --text-dimmer: #6b6b6b;
+      --accent: #00b4d8;
+      --accent-2: #00a896;
+      --gold: #f5b301;
+      --danger: #ef4444;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --header-h: 60px;
+      --bottomnav-h: 62px;
+      --maxw: 1280px;
+      --font: "Vazirmatn", "Inter", system-ui, -apple-system, sans-serif;
+      --shadow: 0 8px 30px rgba(0,0,0,.5);
+    }
+    html[dir="ltr"] { --font: "Inter", "Vazirmatn", system-ui, -apple-system, sans-serif; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px));
+    }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    input, textarea, select { font-family: inherit; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent); color: #001318; }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 20px; }
+
+    .hide-scroll::-webkit-scrollbar { display: none; }
+    .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ---------- Layout helpers ---------- */
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 16px; width: 100%; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .hidden { display: none !important; }
+
+    /* ============ HEADER ============ */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      height: var(--header-h);
+      background: rgba(13,13,13,.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: .3px; }
+    .brand .logo-mark {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid; place-items: center; color: #001318; font-weight: 800; font-size: 15px;
+      box-shadow: 0 4px 16px rgba(0,180,216,.35);
+    }
+    .brand .brand-text { background: linear-gradient(90deg,#fff,#cfeef3); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .header-actions { display: flex; align-items: center; gap: 6px; }
+    .icon-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: grid; place-items: center; color: var(--text-dim);
+      transition: background .15s, color .15s;
+    }
+    .icon-btn:hover, .icon-btn:focus-visible { background: var(--surface); color: var(--text); }
+    .icon-btn.crown { color: var(--gold); }
+
+    .lang-toggle {
+      display: inline-flex; align-items: center; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 999px; padding: 3px; gap: 2px;
+      font-size: 12px; font-weight: 600;
+    }
+    .lang-toggle button { padding: 5px 11px; border-radius: 999px; color: var(--text-dim); white-space: nowrap; transition: .15s; }
+    .lang-toggle button.active { background: var(--accent); color: #001318; }
+
+    .avatar-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg,#3a3a3a,#1f1f1f);
+      display: grid; place-items: center; font-weight: 700; color: #fff;
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Desktop nav links */
+    .desktop-nav { display: none; align-items: center; gap: 4px; margin: 0 8px; }
+    .desktop-nav a { padding: 8px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--text-dim); transition: .15s; white-space: nowrap; }
+    .desktop-nav a:hover, .desktop-nav a.active { color: var(--text); background: var(--surface); }
+
+    /* ============ DRAWER ============ */
+    .drawer-overlay {
+      position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.6);
+      backdrop-filter: blur(3px); opacity: 0; visibility: hidden; transition: .25s;
+    }
+    .drawer-overlay.open { opacity: 1; visibility: visible; }
+    .drawer {
+      position: fixed; top: 0; bottom: 0; inset-inline-start: 0; z-index: 210;
+      width: min(84vw, 320px); background: var(--bg-2); border-inline-end: 1px solid var(--border);
+      transform: translateX(-105%); transition: transform .28s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; padding: 18px;
+    }
+    html[dir="rtl"] .drawer { transform: translateX(105%); }
+    .drawer.open { transform: translateX(0) !important; }
+    .drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .drawer-nav { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
+    .drawer-nav a {
+      display: flex; align-items: center; gap: 14px; padding: 13px 14px; border-radius: 10px;
+      color: var(--text-dim); font-weight: 600; font-size: 15px; transition: .15s;
+    }
+    .drawer-nav a:hover, .drawer-nav a.active { background: var(--surface); color: var(--text); }
+    .drawer-nav a.active { box-shadow: inset 3px 0 0 var(--accent); }
+    html[dir="rtl"] .drawer-nav a.active { box-shadow: inset -3px 0 0 var(--accent); }
+    .drawer-nav svg { flex: 0 0 auto; }
+
+    /* ============ BOTTOM NAV ============ */
+    .bottom-nav {
+      position: fixed; inset-inline: 0; bottom: 0; z-index: 150;
+      height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom, 0px));
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      background: rgba(18,18,18,.94); backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: stretch; justify-content: space-around;
+    }
+    .bottom-nav button {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; color: var(--text-dimmer); font-size: 10.5px; font-weight: 600; transition: color .15s; padding-top: 4px;
+    }
+    .bottom-nav button.active { color: var(--accent); }
+    .bottom-nav button.active svg { filter: drop-shadow(0 0 8px rgba(0,180,216,.6)); }
+
+    /* ============ PAGE / SECTIONS ============ */
+    main { padding-top: 16px; padding-bottom: 24px; min-height: 60vh; }
+    .page { display: none; animation: fade .25s ease; }
+    .page.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .section-title { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 12px; }
+    .section-title h2 { font-size: 19px; font-weight: 800; }
+    .section-title a { font-size: 13px; color: var(--accent); font-weight: 600; }
+
+    /* Category pills */
+    .pills { display: flex; gap: 9px; overflow-x: auto; padding: 4px 0 10px; }
+    .pill {
+      flex: 0 0 auto; padding: 8px 16px; border-radius: 999px; background: var(--surface);
+      border: 1px solid var(--border); color: var(--text-dim); font-size: 13px; font-weight: 600; transition: .15s; white-space: nowrap;
+    }
+    .pill.active { background: var(--accent); border-color: var(--accent); color: #001318; }
+    .pill:hover:not(.active) { color: var(--text); border-color: var(--surface-3); }
+
+    /* Media grid */
+    .media-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .card { cursor: pointer; transition: transform .18s; }
+    .card:hover { transform: translateY(-3px); }
+    .poster {
+      position: relative; aspect-ratio: 2/3; border-radius: var(--radius); overflow: hidden;
+      background: var(--surface); box-shadow: var(--shadow);
+    }
+    .poster img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .card:hover .poster img { transform: scale(1.06); }
+    .poster .badge-tl, .poster .badge-tr, .poster .badge-bl {
+      position: absolute; font-size: 10.5px; font-weight: 700; padding: 4px 8px; border-radius: 7px;
+      backdrop-filter: blur(6px); display: flex; align-items: center; gap: 4px;
+    }
+    .poster .badge-tl { top: 8px; inset-inline-start: 8px; background: rgba(0,0,0,.6); color: #fff; }
+    .poster .badge-tr { top: 8px; inset-inline-end: 8px; background: rgba(245,179,1,.92); color: #1a1200; }
+    .poster .badge-bl { bottom: 8px; inset-inline-start: 8px; background: rgba(0,180,216,.92); color: #001318; }
+    .card-body { padding: 9px 2px 0; }
+    .card-title { font-size: 13.5px; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-meta { font-size: 11.5px; color: var(--text-dim); margin-top: 3px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .genre-chip { font-size: 10px; background: var(--surface); border: 1px solid var(--border); padding: 2px 7px; border-radius: 6px; color: var(--text-dim); }
+
+    /* Franchise banner cards */
+    .franchise-list { display: grid; gap: 14px; }
+    .franchise {
+      position: relative; border-radius: var(--radius); overflow: hidden; min-height: 150px;
+      display: flex; align-items: flex-end; box-shadow: var(--shadow); cursor: pointer;
+    }
+    .franchise img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .franchise::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,13,13,.92) 0%, rgba(13,13,13,.4) 60%, transparent 100%); }
+    html[dir="ltr"] .franchise::after { background: linear-gradient(90deg, rgba(13,13,13,.92) 0%, rgba(13,13,13,.4) 60%, transparent 100%); }
+    .franchise-body { position: relative; z-index: 2; padding: 16px; }
+    .franchise-body h3 { font-size: 18px; font-weight: 800; }
+    .franchise-count { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 700; background: var(--accent); color: #001318; padding: 3px 10px; border-radius: 999px; }
+    .rating-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .rating-badge { font-size: 11px; font-weight: 700; background: rgba(0,0,0,.5); border: 1px solid var(--border); padding: 4px 8px; border-radius: 7px; display: flex; align-items: center; gap: 5px; }
+    .rating-badge.imdb { color: var(--gold); }
+
+    /* ============ DETAIL PAGE ============ */
+    .detail-hero { position: relative; margin: -16px -16px 0; }
+    .detail-hero .backdrop { width: 100%; aspect-ratio: 16/9; max-height: 460px; object-fit: cover; }
+    .detail-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,13,13,.15) 0%, rgba(13,13,13,.7) 60%, var(--bg) 100%); }
+    .detail-hero .hero-content { position: absolute; z-index: 2; inset-inline: 0; bottom: 0; padding: 16px; display: flex; gap: 14px; align-items: flex-end; }
+    .detail-hero .hero-poster { width: 92px; flex: 0 0 auto; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 2/3; }
+    .detail-hero .hero-poster img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-meta h1 { font-size: 21px; font-weight: 800; line-height: 1.25; }
+    .detail-meta .sub { font-size: 12.5px; color: var(--text-dim); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+    .player-wrap {
+      position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: var(--radius);
+      overflow: hidden; margin-top: 18px; box-shadow: var(--shadow);
+    }
+    .player-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .player-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: var(--text-dim); gap: 10px; text-align: center; padding: 20px; }
+
+    .action-bar { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .action-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px;
+      background: var(--surface); border: 1px solid var(--border); color: var(--text); font-weight: 600; font-size: 13.5px; transition: .15s;
+    }
+    .action-btn:hover { background: var(--surface-2); }
+    .action-btn.active { color: var(--accent); border-color: var(--accent); }
+    .action-btn.like.active { color: #ff5c78; border-color: #ff5c78; }
+    .action-btn.like.active svg { fill: #ff5c78; }
+    .action-btn.bookmark.active svg { fill: var(--accent); }
+    .action-btn .spin { animation: spin .8s linear infinite; }
+
+    .watch-cta {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      margin-top: 16px; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: 800;
+      background: linear-gradient(135deg,var(--accent),var(--accent-2)); color: #001318;
+      box-shadow: 0 8px 24px rgba(0,180,216,.3); transition: transform .15s;
+    }
+    .watch-cta:active { transform: scale(.98); }
+
+    .synopsis { margin-top: 18px; color: var(--text-dim); font-size: 14px; }
+    .synopsis.clamped p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .read-more { color: var(--accent); font-weight: 700; font-size: 13px; margin-top: 6px; }
+
+    /* Episode selector */
+    .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 8px; margin-top: 14px; }
+    .ep-btn {
+      aspect-ratio: 1; border-radius: 9px; background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-dim); font-weight: 700; font-size: 13px; transition: .15s;
+    }
+    .ep-btn:hover { background: var(--surface-2); color: var(--text); }
+    .ep-btn.active { background: var(--accent); border-color: var(--accent); color: #001318; box-shadow: 0 4px 14px rgba(0,180,216,.35); }
+
+    /* Comments */
+    .comment-form { display: flex; gap: 10px; margin-top: 14px; align-items: flex-start; }
+    .comment-form .c-avatar { width: 40px; height: 40px; border-radius: 50%; flex: 0 0 auto; background: var(--surface-2); display: grid; place-items: center; font-weight: 700; overflow: hidden; }
+    .comment-form .c-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .comment-input-wrap { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .comment-input-wrap textarea {
+      width: 100%; resize: vertical; min-height: 44px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 11px 13px; color: var(--text); font-size: 14px;
+    }
+    .comment-input-wrap textarea:focus { outline: none; border-color: var(--accent); }
+    .comment-submit { align-self: flex-end; padding: 9px 20px; border-radius: 9px; background: var(--accent); color: #001318; font-weight: 700; font-size: 13px; }
+    .comment-submit:disabled { opacity: .5; cursor: not-allowed; }
+
+    .comment-list { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+    .comment {
+      display: flex; gap: 12px;
+    }
+    .comment .c-avatar { width: 40px; height: 40px; border-radius: 50%; flex: 0 0 auto; background: linear-gradient(135deg,#3a3a3a,#1f1f1f); display: grid; place-items: center; font-weight: 700; overflow: hidden; }
+    .comment .c-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .comment-content { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 11px 14px; }
+    .comment-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .comment-head .name { font-weight: 700; font-size: 13.5px; }
+    .comment-head .time { font-size: 11px; color: var(--text-dimmer); }
+    .comment-text { font-size: 14px; color: #e6e6e6; word-break: break-word; white-space: pre-wrap; }
+
+    /* ============ PROFILE ============ */
+    .profile-banner { position: relative; height: 160px; margin: -16px -16px 0; background: var(--surface); overflow: hidden; }
+    .profile-banner img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-banner::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent, rgba(13,13,13,.7)); }
+    .profile-head { display: flex; align-items: flex-end; gap: 16px; margin-top: -46px; position: relative; z-index: 2; padding: 0 4px; }
+    .profile-avatar {
+      width: 92px; height: 92px; border-radius: 50%; border: 4px solid var(--bg);
+      background: linear-gradient(135deg,var(--accent),var(--accent-2)); display: grid; place-items: center;
+      font-size: 34px; font-weight: 800; color: #001318; overflow: hidden; flex: 0 0 auto;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-info { flex: 1; padding-bottom: 6px; }
+    .profile-info h2 { font-size: 20px; font-weight: 800; }
+    .profile-info .username { color: var(--text-dim); font-size: 13.5px; }
+    .profile-info .bio { color: var(--text-dim); font-size: 13.5px; margin-top: 6px; }
+
+    .profile-tabs { display: flex; gap: 6px; overflow-x: auto; margin-top: 20px; border-bottom: 1px solid var(--border); }
+    .profile-tab { padding: 12px 14px; font-size: 14px; font-weight: 600; color: var(--text-dim); white-space: nowrap; border-bottom: 2px solid transparent; transition: .15s; }
+    .profile-tab.active { color: var(--text); border-color: var(--accent); }
+
+    .empty-state { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 20px; gap: 14px; }
+    .empty-state img { width: 140px; height: 140px; object-fit: contain; opacity: .95; }
+    .empty-state h3 { font-size: 16px; font-weight: 700; }
+    .empty-state p { font-size: 13.5px; color: var(--text-dim); max-width: 300px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; border-radius: 10px; font-weight: 700; font-size: 14px; transition: .15s; }
+    .btn-primary { background: var(--accent); color: #001318; }
+    .btn-primary:hover { background: #16c2e8; }
+    .btn-ghost { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { background: var(--surface-2); }
+    .btn-block { width: 100%; }
+    .btn:disabled { opacity: .55; cursor: not-allowed; }
+
+    /* ============ SETTINGS FORMS ============ */
+    .settings-wrap { max-width: 640px; margin: 0 auto; }
+    .settings-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 18px; }
+    .settings-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+    .settings-card .card-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 16px; }
+    .field { margin-bottom: 15px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 7px; color: var(--text-dim); }
+    .field input, .field textarea {
+      width: 100%; background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; color: var(--text); font-size: 14px;
+    }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+    .field input:disabled { opacity: .6; cursor: not-allowed; }
+    .field .helper { font-size: 11.5px; color: var(--text-dimmer); margin-top: 6px; }
+    .field .helper.locked { color: var(--gold); }
+    .upload-row { display: flex; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+    .upload-zone { position: relative; }
+    .upload-zone .zone-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--bg-2); border: 1px dashed var(--surface-3); display: grid; place-items: center; overflow: hidden; }
+    .upload-zone .zone-cover { width: 100%; height: 90px; border-radius: 10px; background: var(--bg-2); border: 1px dashed var(--surface-3); display: grid; place-items: center; overflow: hidden; }
+    .upload-zone .change-badge { position: absolute; bottom: -4px; inset-inline-end: -4px; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #001318; display: grid; place-items: center; border: 3px solid var(--surface); }
+    .upload-zone.cover { flex: 1; min-width: 200px; }
+
+    /* ============ MODAL ============ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,.72);
+      backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-overlay.open { display: flex; animation: fade .2s ease; }
+    .modal {
+      background: var(--bg-2); border: 1px solid var(--border); border-radius: 18px;
+      width: 100%; max-width: 400px; padding: 26px 22px; box-shadow: var(--shadow);
+      max-height: 92vh; overflow-y: auto; animation: pop .25s cubic-bezier(.2,.8,.3,1.2);
+    }
+    @keyframes pop { from { transform: translateY(14px) scale(.97); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .modal-head h2 { font-size: 21px; font-weight: 800; }
+    .modal .sub { color: var(--text-dim); font-size: 13.5px; margin-bottom: 18px; }
+    .google-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      padding: 12px; border-radius: 10px; background: #fff; color: #1a1a1a; font-weight: 700; font-size: 14px; transition: .15s;
+    }
+    .google-btn:hover { background: #f0f0f0; }
+    .google-btn:disabled { opacity: .6; }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: var(--text-dimmer); font-size: 12px; }
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+    .auth-error { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.4); color: #ffb4b4; font-size: 13px; padding: 10px 12px; border-radius: 9px; margin-bottom: 14px; display: none; }
+    .auth-error.show { display: block; }
+    .auth-success { background: rgba(0,168,150,.12); border: 1px solid rgba(0,168,150,.4); color: #8ff0e5; font-size: 13px; padding: 10px 12px; border-radius: 9px; margin-bottom: 14px; display: none; }
+    .auth-success.show { display: block; }
+    .modal-switch { text-align: center; font-size: 13.5px; color: var(--text-dim); margin-top: 16px; }
+    .modal-switch button { color: var(--accent); font-weight: 700; }
+    .link-btn { color: var(--accent); font-weight: 600; font-size: 13px; }
+
+    /* ============ TOAST ============ */
+    .toast-wrap { position: fixed; bottom: calc(var(--bottomnav-h) + 20px); inset-inline: 0; z-index: 400; display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
+    .toast {
+      background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+      padding: 11px 18px; border-radius: 999px; font-size: 13.5px; font-weight: 600; box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 9px; animation: toastIn .3s ease;
+    }
+    .toast.success { border-color: var(--accent-2); }
+    .toast.error { border-color: var(--danger); }
+    @keyframes toastIn { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+    /* ============ LOADERS ============ */
+    .spinner { width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,.2); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+    .spinner.lg { width: 40px; height: 40px; border-width: 4px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .center-loader { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 60px 20px; color: var(--text-dim); }
+
+    .skeleton { background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius); }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel-poster { aspect-ratio: 2/3; }
+
+    /* Boot overlay */
+    #boot { position: fixed; inset: 0; z-index: 500; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; transition: opacity .4s; }
+    #boot .logo-mark { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg,var(--accent),var(--accent-2)); display: grid; place-items: center; color: #001318; font-weight: 800; font-size: 26px; box-shadow: 0 8px 30px rgba(0,180,216,.4); }
+    #boot .brand-text { font-size: 22px; font-weight: 800; }
+
+    /* ============ RESPONSIVE ============ */
+    @media (min-width: 640px) {
+      .media-grid { grid-template-columns: repeat(3, 1fr); }
+      .detail-hero .hero-poster { width: 120px; }
+      .detail-meta h1 { font-size: 26px; }
+    }
+    @media (min-width: 900px) {
+      :root { --header-h: 68px; }
+      body { padding-bottom: 30px; }
+      .bottom-nav { display: none; }
+      .desktop-nav { display: flex; }
+      .hamburger { display: none; }
+      .media-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+      .franchise-list { grid-template-columns: repeat(2, 1fr); }
+      main { padding-top: 22px; }
+      .detail-hero .backdrop { aspect-ratio: 21/9; }
+      .detail-hero .hero-poster { width: 150px; }
+      .ep-grid { grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); }
+    }
+    @media (min-width: 1200px) {
+      .media-grid { grid-template-columns: repeat(5, 1fr); }
+      .franchise-list { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================================
+       BOOT / INITIALIZATION LOADER
+       =================================================================== -->
+  <div id="boot" role="status" aria-live="polite">
+    <div class="logo-mark">LD</div>
+    <div class="brand-text">Lozan Drama</div>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ===================================================================
+       HTML STRUCTURE — HEADER
+       =================================================================== -->
+  <header class="header">
+    <div class="container header-inner">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="icon-btn hamburger" id="hamburgerBtn" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <a class="brand" href="#/home" data-nav="home">
+          <span class="logo-mark">LD</span>
+          <span class="brand-text">Lozan Drama</span>
+        </a>
+      </div>
+
+      <nav class="desktop-nav" id="desktopNav" aria-label="Primary"></nav>
+
+      <div class="header-actions">
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button id="langKu" data-lang="ku">کوردی</button>
+          <button id="langEn" data-lang="en">English</button>
+        </div>
+        <button class="icon-btn" id="searchBtn" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <button class="icon-btn crown" id="vipBtn" aria-label="VIP">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 6.5L6 10l3.5-5L12 8l2.5-3L18 10l3.5-3.5L20 18H4L2.5 6.5z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="avatar-btn" id="avatarBtn" aria-label="Account"><span id="avatarInitial">G</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawer-head">
+      <a class="brand" href="#/home" data-nav="home"><span class="logo-mark">LD</span><span class="brand-text">Lozan Drama</span></a>
+      <button class="icon-btn" id="drawerClose" aria-label="Close menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav" id="drawerNav"></nav>
+  </aside>
+
+  <!-- ===================================================================
+       MAIN CONTENT — PAGES
+       =================================================================== -->
+  <main class="container" id="app">
+
+    <!-- HOME / CATALOG -->
+    <section class="page" id="page-home">
+      <div class="pills" id="homePills"></div>
+      <div class="section-title"><h2 data-i18n="trending"></h2></div>
+      <div class="media-grid" id="homeGrid"></div>
+
+      <div class="section-title"><h2 data-i18n="franchises"></h2></div>
+      <div class="franchise-list" id="franchiseList"></div>
+    </section>
+
+    <!-- MOVIES -->
+    <section class="page" id="page-movies">
+      <div class="section-title"><h2 data-i18n="movies"></h2></div>
+      <div class="pills" id="moviesPills"></div>
+      <div class="media-grid" id="moviesGrid"></div>
+    </section>
+
+    <!-- SERIES -->
+    <section class="page" id="page-series">
+      <div class="section-title"><h2 data-i18n="series"></h2></div>
+      <div class="pills" id="seriesPills"></div>
+      <div class="media-grid" id="seriesGrid"></div>
+    </section>
+
+    <!-- MANGA -->
+    <section class="page" id="page-manga">
+      <div class="section-title"><h2 data-i18n="manga"></h2></div>
+      <div class="media-grid" id="mangaGrid"></div>
+    </section>
+
+    <!-- FRANCHISES -->
+    <section class="page" id="page-franchises">
+      <div class="section-title"><h2 data-i18n="franchises"></h2></div>
+      <div class="franchise-list" id="franchisesPageList"></div>
+    </section>
+
+    <!-- DETAIL -->
+    <section class="page" id="page-detail"></section>
+
+    <!-- PROFILE -->
+    <section class="page" id="page-profile"></section>
+
+    <!-- SETTINGS -->
+    <section class="page" id="page-settings"></section>
+
+    <!-- GENERIC PLACEHOLDER PAGES (top250 / reviews / staff / about) -->
+    <section class="page" id="page-generic"></section>
+
+  </main>
+
+  <!-- ===================================================================
+       BOTTOM NAVIGATION (MOBILE)
+       =================================================================== -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation">
+    <button data-nav="movies">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="17" y2="20"/><line x1="3" y1="9" x2="7" y2="9"/><line x1="17" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="7" y2="15"/><line x1="17" y1="15" x2="21" y2="15"/></svg>
+      <span data-i18n="movies"></span>
+    </button>
+    <button data-nav="series">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="13" rx="2"/><polyline points="8 3 12 7 16 3"/></svg>
+      <span data-i18n="series"></span>
+    </button>
+    <button data-nav="home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      <span data-i18n="home"></span>
+    </button>
+    <button data-nav="franchises">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 12.5 12 19 22 12.5"/></svg>
+      <span data-i18n="franchises"></span>
+    </button>
+    <button data-nav="manga">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5H22z"/></svg>
+      <span data-i18n="manga"></span>
+    </button>
+  </nav>
+
+  <!-- ===================================================================
+       AUTH MODAL
+       =================================================================== -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <div class="modal-head">
+        <h2 id="authTitle"></h2>
+        <button class="icon-btn" id="authClose" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p class="sub" id="authSub"></p>
+
+      <div class="auth-error" id="authError"></div>
+      <div class="auth-success" id="authSuccess"></div>
+
+      <!-- Google -->
+      <button class="google-btn" id="googleBtn">
+        <svg width="19" height="19" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+        <span data-i18n="continueGoogle"></span>
+      </button>
+
+      <div class="divider"><span data-i18n="or"></span></div>
+
+      <!-- Login / Register form -->
+      <form id="authForm" autocomplete="on">
+        <div class="field" id="nameField">
+          <label data-i18n="displayName"></label>
+          <input type="text" id="authName" />
+        </div>
+        <div class="field">
+          <label data-i18n="email"></label>
+          <input type="email" id="authEmail" autocomplete="email" required />
+        </div>
+        <div class="field" id="passField">
+          <label data-i18n="password"></label>
+          <input type="password" id="authPass" autocomplete="current-password" />
+        </div>
+        <div style="text-align:end;margin:-4px 0 14px;" id="forgotRow">
+          <button type="button" class="link-btn" id="forgotBtn" data-i18n="forgotPassword"></button>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="authSubmit"></button>
+      </form>
+
+      <p class="modal-switch" id="authSwitch"></p>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+  <!-- ===================================================================
+       JAVASCRIPT (Firebase + App logic)
+       =================================================================== -->
+  <script type="module">
+    /* =================================================================
+       FIREBASE CONFIGURATION
+       ================================================================= */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup,
+      createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+      sendPasswordResetEmail, updateProfile, updatePassword,
+      reauthenticateWithCredential, EmailAuthProvider
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc,
+      onSnapshot, query, orderBy, serverTimestamp, arrayUnion, arrayRemove,
+      increment, runTransaction, writeBatch
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-placeholder-key-login-b8e4d",
+      authDomain: "login-b8e4d.firebaseapp.com",
+      databaseURL: "https://login-b8e4d-default-rtdb.firebaseio.com",
+      projectId: "login-b8e4d",
+      storageBucket: "login-b8e4d.firebasestorage.app",
+      messagingSenderId: "593666784471",
+      appId: "1:593666784471:web:c0741354cd95ee02a20492"
+    };
+    // NOTE: The apiKey above is the client-side (public) web key. It is safe to expose.
+    // Firestore Security Rules must enforce authenticated write access server-side.
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+    const googleProvider = new GoogleAuthProvider();
+
+    /* =================================================================
+       LANGUAGE SYSTEM (i18n)
+       ================================================================= */
+    const I18N = {
+      ku: {
+        home: "سەرەتا", movies: "فیلم", series: "زنجیرە", manga: "مانگا",
+        franchises: "زنجیرە فیلم", top250: "٢٥٠ی مێژوو", reviews: "پێداچوونەوە",
+        staff: "ستاف", about: "دەربارە",
+        trending: "بەناوبانگ", collections: "کۆکراوەکان",
+        continueGoogle: "بەردەوامبوون بە گووگڵ", or: "یان",
+        displayName: "ناوی پیشاندان", email: "ئیمەیڵ", password: "وشەی نهێنی",
+        forgotPassword: "وشەی نهێنیت لەبیرچووە؟",
+        login: "چوونەژوورەوە", register: "خۆتۆمارکردن", logout: "دەرچوون",
+        loginTitle: "چوونەژوورەوە", registerTitle: "دروستکردنی هەژمار",
+        loginSub: "بەخێربێیتەوە بۆ Lozan Drama", registerSub: "بەخێربێیت بۆ Lozan Drama",
+        noAccount: "هەژمارت نییە؟", haveAccount: "هەژمارت هەیە؟",
+        signUp: "خۆتۆمارکە", signIn: "بچۆژوورەوە",
+        watch: "بینینی زنجیرە", readMore: "زیاتر بخوێنەوە", readLess: "کەمتر",
+        episodes: "ئەڵقەکان", episode: "ئەڵقە",
+        like: "بەدڵمە", share: "هاوبەشکردن", bookmark: "پاشەکەوت", views: "بینین",
+        comments: "لێدوانەکان", writeComment: "لێدوانێک بنووسە...", send: "ناردن",
+        loginToComment: "بۆ لێدواندان بچۆ ژوورەوە", noComments: "هێشتا هیچ لێدوانێک نییە. یەکەم کەس بە!",
+        linkCopied: "بەستەرەکە کۆپی کرا", commentEmpty: "لێدوان ناتوانێت بەتاڵ بێت",
+        dramaNotFound: "دراماکە نەدۆزرایەوە", dramaNotFoundSub: "ئەم دراما بوونی نییە یان سڕاوەتەوە.",
+        backHome: "گەڕانەوە بۆ سەرەتا", loading: "بارکردن...",
+        profile: "پرۆفایل", editAccount: "ڕێکخستنی هەژمار",
+        favorites: "دڵخوازەکان", watchLater: "بینینی دواتر", following: "شوێنکەوتووان",
+        myReviews: "پێداچوونەوەکان",
+        emptyFavTitle: "هیچ دڵخوازێک نییە", emptyFavSub: "ئەو درامایانەی حەزت لێیانە زیاد بکە بۆ ئێرە.",
+        emptyReviewTitle: "هیچ پێداچوونەوەیەک نییە", emptyReviewSub: "پێداچوونەوەکانت لێرە دەردەکەون.",
+        emptyWatchTitle: "لیستی بینینی دواتر بەتاڵە", emptyWatchSub: "درامای دواتر لێرە پاشەکەوت بکە.",
+        emptyFollowTitle: "کەس ناکەیت بەشوێنیدا", emptyFollowSub: "شوێن بەکارهێنەران بکەوە بۆ بینینی چالاکیەکانیان.",
+        settings: "ڕێکخستنەکان", accountInfo: "زانیاری هەژمار", accountInfoSub: "پرۆفایلەکەت نوێبکەرەوە.",
+        security: "پاراستن", securitySub: "وشەی نهێنیەکەت بگۆڕە.",
+        username: "نازناو", bio: "بایۆ",
+        currentPassword: "وشەی نهێنی ئێستا", newPassword: "وشەی نهێنی نوێ", confirmPassword: "دووبارە وشەی نوێ",
+        saveChanges: "پاشەکەوتکردن", change: "گۆڕین",
+        usernameHelper: "تەنها (a-z, 0-9, _) ڕێگەپێدراوە", emailLocked: "بە گووگڵ چوویتەژوورەوە — ئیمەیڵ ناگۆڕدرێت",
+        cover: "کەڤەر", avatar: "وێنە",
+        signInRequired: "پێویستە بچیتە ژوورەوە", signInRequiredSub: "بۆ ئەم کارە پێویستە هەژمارت هەبێت.",
+        savedOk: "پاشەکەوتکرا", profileUpdated: "پرۆفایل نوێکرایەوە", passwordUpdated: "وشەی نهێنی گۆڕا",
+        resetSent: "بەستەری ڕێکخستنەوە نێردرا بۆ ئیمەیڵەکەت", passMismatch: "وشە نهێنیەکان وەک یەک نین",
+        selectEpisode: "ئەڵقەیەک هەڵبژێرە بۆ سەیرکردن", now: "ئێستا", minAgo: "خولەک لەمەوبەر",
+        hourAgo: "کاتژمێر لەمەوبەر", dayAgo: "ڕۆژ لەمەوبەر", genericSoon: "بەم زووانە!",
+        genericSoonSub: "ئەم بەشە لە ئێستادا لە ئامادەکاریدایە.",
+        year: "ساڵ", rating: "هەڵسەنگاندن", quality: "کوالیتی",
+      },
+      en: {
+        home: "Home", movies: "Movies", series: "Series", manga: "Manga",
+        franchises: "Franchises", top250: "Top 250", reviews: "Reviews",
+        staff: "Staff", about: "About",
+        trending: "Trending Now", collections: "Collections",
+        continueGoogle: "Continue with Google", or: "or",
+        displayName: "Display Name", email: "Email", password: "Password",
+        forgotPassword: "Forgot password?",
+        login: "Login", register: "Register", logout: "Logout",
+        loginTitle: "Sign In", registerTitle: "Create Account",
+        loginSub: "Welcome back to Lozan Drama", registerSub: "Welcome to Lozan Drama",
+        noAccount: "Don't have an account?", haveAccount: "Already have an account?",
+        signUp: "Sign up", signIn: "Sign in",
+        watch: "Watch Now", readMore: "Read more", readLess: "Read less",
+        episodes: "Episodes", episode: "Episode",
+        like: "Like", share: "Share", bookmark: "Bookmark", views: "views",
+        comments: "Comments", writeComment: "Write a comment...", send: "Send",
+        loginToComment: "Sign in to comment", noComments: "No comments yet. Be the first!",
+        linkCopied: "Link copied", commentEmpty: "Comment can't be empty",
+        dramaNotFound: "Drama Not Found", dramaNotFoundSub: "This drama doesn't exist or was removed.",
+        backHome: "Back to Home", loading: "Loading...",
+        profile: "Profile", editAccount: "Edit Account",
+        favorites: "Favorites", watchLater: "Watch Later", following: "Following",
+        myReviews: "Reviews",
+        emptyFavTitle: "No favorites yet", emptyFavSub: "Add dramas you love and they'll show up here.",
+        emptyReviewTitle: "No reviews yet", emptyReviewSub: "Your reviews will appear here.",
+        emptyWatchTitle: "Watch Later is empty", emptyWatchSub: "Save dramas to watch later here.",
+        emptyFollowTitle: "Not following anyone", emptyFollowSub: "Follow users to see their activity.",
+        settings: "Settings", accountInfo: "Account Info", accountInfoSub: "Update your public profile.",
+        security: "Security", securitySub: "Change your password.",
+        username: "Username", bio: "Bio",
+        currentPassword: "Current Password", newPassword: "New Password", confirmPassword: "Confirm New Password",
+        saveChanges: "Save Changes", change: "Change",
+        usernameHelper: "Only (a-z, 0-9, _) allowed", emailLocked: "Signed in with Google — email is locked",
+        cover: "Cover", avatar: "Avatar",
+        signInRequired: "Sign in required", signInRequiredSub: "You need an account to do that.",
+        savedOk: "Saved", profileUpdated: "Profile updated", passwordUpdated: "Password changed",
+        resetSent: "A reset link was sent to your email", passMismatch: "Passwords don't match",
+        selectEpisode: "Select an episode to watch", now: "now", minAgo: "min ago",
+        hourAgo: "h ago", dayAgo: "d ago", genericSoon: "Coming soon!",
+        genericSoonSub: "This section is currently under construction.",
+        year: "Year", rating: "Rating", quality: "Quality",
+      }
+    };
+
+    let LANG = localStorage.getItem("ld_lang") || "ku";
+    function t(key) { return (I18N[LANG] && I18N[LANG][key]) || key; }
+
+    const NAV_ITEMS = [
+      { id: "home", icon: "M3 10.5L12 3l9 7.5M5 9.5V21h14V9.5" },
+      { id: "movies", icon: "M3 4h18v16H3z" },
+      { id: "series", icon: "M2 7h20v13H2z" },
+      { id: "manga", icon: "M2 4h7a3 3 0 0 1 3 3v13" },
+      { id: "franchises", icon: "M12 2l10 6.5L12 15 2 8.5z" },
+      { id: "top250", icon: "M8 21V7l4-4 4 4v14" },
+      { id: "reviews", icon: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" },
+      { id: "staff", icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" },
+      { id: "about", icon: "M12 16v-4M12 8h.01" },
+    ];
+
+    function applyLanguage() {
+      const dir = LANG === "ku" ? "rtl" : "ltr";
+      document.documentElement.dir = dir;
+      document.documentElement.lang = LANG;
+      localStorage.setItem("ld_lang", LANG);
+
+      // toggle button active states
+      document.getElementById("langKu").classList.toggle("active", LANG === "ku");
+      document.getElementById("langEn").classList.toggle("active", LANG === "en");
+
+      // update all [data-i18n]
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.textContent = t(el.getAttribute("data-i18n"));
+      });
+
+      buildNav();
+      // re-render current route so dynamic strings update
+      handleRoute();
+    }
+
+    /* =================================================================
+       NAVIGATION SYSTEM (hash router)
+       ================================================================= */
+    function buildNav() {
+      const desktop = document.getElementById("desktopNav");
+      const drawer  = document.getElementById("drawerNav");
+      desktop.innerHTML = "";
+      drawer.innerHTML = "";
+      NAV_ITEMS.forEach(item => {
+        const a = document.createElement("a");
+        a.href = "#/" + item.id;
+        a.dataset.nav = item.id;
+        a.textContent = t(item.id);
+        desktop.appendChild(a);
+
+        const da = document.createElement("a");
+        da.href = "#/" + item.id;
+        da.dataset.nav = item.id;
+        da.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${item.icon}"/></svg><span>${t(item.id)}</span>`;
+        drawer.appendChild(da);
+      });
+      highlightNav();
+    }
+
+    function highlightNav() {
+      const route = currentRoute().page;
+      document.querySelectorAll("[data-nav]").forEach(el => {
+        el.classList.toggle("active", el.dataset.nav === route);
+      });
+    }
+
+    function currentRoute() {
+      // Support both #/drama/ID and ?drama=ID (Blogger friendly)
+      const hash = location.hash.replace(/^#\//, "");
+      const parts = hash.split("/").filter(Boolean);
+      const params = new URLSearchParams(location.search);
+      if (params.get("drama")) return { page: "detail", id: params.get("drama") };
+      if (parts[0] === "drama" && parts[1]) return { page: "detail", id: decodeURIComponent(parts[1]) };
+      const page = parts[0] || "home";
+      return { page, id: parts[1] || null };
+    }
+
+    function navigate(page, id) {
+      if (page === "detail" && id) location.hash = "#/drama/" + encodeURIComponent(id);
+      else location.hash = "#/" + page;
+    }
+
+    function showPage(pageId) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      const el = document.getElementById("page-" + pageId);
+      if (el) el.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+    }
+
+    /* =================================================================
+       SAMPLE CATALOG (client-side listing content).
+       Detail pages read from Firestore /dramas/{id}; if a document is
+       missing it falls back to this seed so the template is fully
+       navigable out of the box. Seeds also auto-create the Firestore
+       doc on first open so likes/comments work immediately.
+       ================================================================= */
+    const IMG = {
+      p1: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80",
+      p2: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&q=80",
+      p3: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=500&q=80",
+      p4: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80",
+      p5: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&q=80",
+      p6: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500&q=80",
+      p7: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&q=80",
+      p8: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=500&q=80",
+      p9: "https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=500&q=80",
+      p10: "https://images.unsplash.com/photo-1608889175123-8ee362201f81?w=500&q=80",
+      bk1: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200&q=80",
+      bk2: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=1200&q=80",
+      bk3: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=1200&q=80",
+    };
+
+    const CATALOG = [
+      { id: "eternal-throne", title: "The Eternal Throne", titleKu: "تەختی هەتاهەتایی", poster: IMG.p1, backdrop: IMG.bk1, year: "2024", rating: 8.7, genres: ["Drama","Fantasy"], quality: "4K", badge: "Season 4", maturity: "16+", type: "series", cat: "Hollywood", episodes: 24 },
+      { id: "crimson-tide", title: "Crimson Tide", titleKu: "شەپۆلی سوور", poster: IMG.p2, backdrop: IMG.bk2, year: "2023", rating: 7.9, genres: ["Action","Thriller"], quality: "1080p", badge: "IMDb 7.9", maturity: "18+", type: "movies", cat: "Action", episodes: 1 },
+      { id: "silent-valley", title: "Silent Valley", titleKu: "دۆڵی بێدەنگ", poster: IMG.p3, backdrop: IMG.bk3, year: "2024", rating: 8.1, genres: ["Mystery","Drama"], quality: "4K", badge: "New", maturity: "13+", type: "series", cat: "European", episodes: 16 },
+      { id: "neon-dreams", title: "Neon Dreams", titleKu: "خەونی نیۆن", poster: IMG.p4, backdrop: IMG.bk1, year: "2022", rating: 7.4, genres: ["Sci-Fi","Anime"], quality: "1080p", badge: "Anime", maturity: "13+", type: "manga", cat: "Anime", episodes: 48 },
+      { id: "last-horizon", title: "The Last Horizon", titleKu: "دوایین ئاسۆ", poster: IMG.p5, backdrop: IMG.bk2, year: "2024", rating: 9.0, genres: ["Adventure","Drama"], quality: "4K", badge: "Top", maturity: "16+", type: "movies", cat: "Hollywood", episodes: 1 },
+      { id: "golden-hour", title: "Golden Hour", titleKu: "کاتژمێری زێڕین", poster: IMG.p6, backdrop: IMG.bk3, year: "2023", rating: 8.3, genres: ["Romance","Drama"], quality: "1080p", badge: "Season 2", maturity: "13+", type: "series", cat: "Drama", episodes: 20 },
+      { id: "shadow-realm", title: "Shadow Realm", titleKu: "جیهانی سێبەر", poster: IMG.p7, backdrop: IMG.bk1, year: "2024", rating: 8.6, genres: ["Fantasy","Action"], quality: "4K", badge: "Anime", maturity: "16+", type: "manga", cat: "Anime", episodes: 60 },
+      { id: "iron-city", title: "Iron City", titleKu: "شاری ئاسن", poster: IMG.p8, backdrop: IMG.bk2, year: "2021", rating: 7.6, genres: ["Crime","Thriller"], quality: "1080p", badge: "IMDb 7.6", maturity: "18+", type: "movies", cat: "European", episodes: 1 },
+      { id: "ocean-deep", title: "Ocean Deep", titleKu: "قووڵایی زەریا", poster: IMG.p9, backdrop: IMG.bk3, year: "2024", rating: 8.0, genres: ["Documentary","Drama"], quality: "4K", badge: "New", maturity: "7+", type: "series", cat: "European", episodes: 8 },
+      { id: "star-forge", title: "Star Forge", titleKu: "کوورەی ئەستێرە", poster: IMG.p10, backdrop: IMG.bk1, year: "2023", rating: 8.4, genres: ["Sci-Fi","Action"], quality: "4K", badge: "Season 3", maturity: "16+", type: "series", cat: "Hollywood", episodes: 30 },
+    ];
+
+    const FRANCHISES = [
+      { id: "eternal-throne", title: "Eternal Saga", titleKu: "چیرۆکی هەتاهەتایی", backdrop: IMG.bk1, count: 39, imdb: 8.7, rt: 92, meta: 88 },
+      { id: "star-forge", title: "Star Universe", titleKu: "گەردوونی ئەستێرە", backdrop: IMG.bk2, count: 12, imdb: 8.4, rt: 85, meta: 79 },
+      { id: "shadow-realm", title: "Shadow Chronicles", titleKu: "کرۆنیکەلی سێبەر", backdrop: IMG.bk3, count: 24, imdb: 8.6, rt: 90, meta: 82 },
+    ];
+
+    const CATEGORIES = ["All","Hollywood","European","Action","Drama","Anime"];
+    let activeCategory = "All";
+
+    function titleFor(item) { return LANG === "ku" && item.titleKu ? item.titleKu : item.title; }
+
+    /* Build a seed drama document (with N generated demo episodes) */
+    function buildSeedDrama(item) {
+      const epCount = Math.min(Math.max(item.episodes || 1, 1), 100);
+      const episodes = [];
+      for (let i = 1; i <= epCount; i++) {
+        // Demo embed — replace with real provider embeds in Firestore.
+        episodes.push({ epNumber: i, embedUrl: `https://www.youtube.com/embed/dQw4w9WgXcQ?ep=${i}` });
+      }
+      return {
+        info: {
+          title: item.title, titleKu: item.titleKu, posterUrl: item.poster, backdropUrl: item.backdrop,
+          genres: item.genres, description:
+            "An epic, emotionally-charged journey that blends stunning visuals with unforgettable performances. Follow the characters as they navigate loyalty, loss, and redemption across a beautifully realised world. This is placeholder synopsis text stored in Firestore and fully editable per drama.",
+          rating: item.rating, year: item.year, quality: item.quality, maturityRating: item.maturity
+        },
+        stats: { viewsCount: Math.floor(Math.random()*5000)+200, likesCount: 0, likedByUsers: [], bookmarkedByUsers: [] },
+        episodes
+      };
+    }
+
+    /* =================================================================
+       CARD / GRID RENDERING
+       ================================================================= */
+    function renderCard(item) {
+      const genres = item.genres.slice(0,2).map(g => `<span class="genre-chip">${esc(g)}</span>`).join("");
+      return `
+        <article class="card" data-open="${esc(item.id)}" role="button" tabindex="0">
+          <div class="poster">
+            <img src="${esc(item.poster)}" alt="${esc(titleFor(item))}" loading="lazy" crossorigin="anonymous"
+                 onerror="this.src='/placeholder.jpg'"/>
+            ${item.badge ? `<span class="badge-tl">${esc(item.badge)}</span>` : ""}
+            <span class="badge-tr">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 17.3 5.8 20.9l1.6-6.8L2.2 8.9l6.9-.6z"/></svg>
+              ${item.rating}
+            </span>
+            ${item.quality ? `<span class="badge-bl">${esc(item.quality)}</span>` : ""}
+          </div>
+          <div class="card-body">
+            <div class="card-title">${esc(titleFor(item))}</div>
+            <div class="card-meta"><span>${esc(item.year)}</span>${genres}</div>
+          </div>
+        </article>`;
+    }
+
+    function renderGrid(el, items) {
+      if (!items.length) { el.innerHTML = `<p style="color:var(--text-dim);grid-column:1/-1;">—</p>`; return; }
+      el.innerHTML = items.map(renderCard).join("");
+      el.querySelectorAll("[data-open]").forEach(c => {
+        const go = () => navigate("detail", c.dataset.open);
+        c.addEventListener("click", go);
+        c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      });
+    }
+
+    function renderPills(el, list, active, onPick) {
+      el.innerHTML = list.map(c => `<button class="pill ${c===active?"active":""}" data-pill="${esc(c)}">${esc(c)}</button>`).join("");
+      el.querySelectorAll("[data-pill]").forEach(p => p.addEventListener("click", () => onPick(p.dataset.pill)));
+    }
+
+    function renderFranchise(f) {
+      return `
+        <div class="franchise" data-open="${esc(f.id)}" role="button" tabindex="0">
+          <img src="${esc(f.backdrop)}" alt="${esc(f.title)}" loading="lazy" crossorigin="anonymous" onerror="this.style.display='none'"/>
+          <div class="franchise-body">
+            <h3>${LANG==="ku"?esc(f.titleKu):esc(f.title)}</h3>
+            <span class="franchise-count">${f.count} ${t("movies")}</span>
+            <div class="rating-row">
+              <span class="rating-badge imdb">IMDb ${f.imdb}</span>
+              <span class="rating-badge">🍅 ${f.rt}%</span>
+              <span class="rating-badge">Meta ${f.meta}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+    function renderFranchiseList(el) {
+      el.innerHTML = FRANCHISES.map(renderFranchise).join("");
+      el.querySelectorAll("[data-open]").forEach(c => {
+        const go = () => navigate("detail", c.dataset.open);
+        c.addEventListener("click", go);
+        c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      });
+    }
+
+    /* =================================================================
+       CATALOG PAGE RENDERERS
+       ================================================================= */
+    function renderHome() {
+      renderPills(document.getElementById("homePills"), CATEGORIES, activeCategory, (c) => { activeCategory = c; renderHome(); });
+      const items = activeCategory === "All" ? CATALOG : CATALOG.filter(i => i.cat === activeCategory || i.genres.includes(activeCategory));
+      renderGrid(document.getElementById("homeGrid"), items);
+      renderFranchiseList(document.getElementById("franchiseList"));
+    }
+    let movieCat = "All", seriesCat = "All";
+    function renderMovies() {
+      renderPills(document.getElementById("moviesPills"), CATEGORIES, movieCat, (c)=>{movieCat=c;renderMovies();});
+      let items = CATALOG.filter(i => i.type === "movies");
+      if (movieCat !== "All") items = items.filter(i => i.cat===movieCat || i.genres.includes(movieCat));
+      renderGrid(document.getElementById("moviesGrid"), items);
+    }
+    function renderSeries() {
+      renderPills(document.getElementById("seriesPills"), CATEGORIES, seriesCat, (c)=>{seriesCat=c;renderSeries();});
+      let items = CATALOG.filter(i => i.type === "series");
+      if (seriesCat !== "All") items = items.filter(i => i.cat===seriesCat || i.genres.includes(seriesCat));
+      renderGrid(document.getElementById("seriesGrid"), items);
+    }
+    function renderManga() { renderGrid(document.getElementById("mangaGrid"), CATALOG.filter(i => i.type === "manga")); }
+    function renderFranchisesPage() { renderFranchiseList(document.getElementById("franchisesPageList")); }
+    function renderGeneric() {
+      document.getElementById("page-generic").innerHTML = `
+        <div class="empty-state">
+          <img src="/empty-state.png" alt=""/>
+          <h3>${t("genericSoon")}</h3>
+          <p>${t("genericSoonSub")}</p>
+        </div>`;
+    }
+
+    /* =================================================================
+       DRAMA LOADING + DETAIL PAGE
+       ================================================================= */
+    let currentDramaId = null;
+    let currentDrama = null;
+    let currentEp = 1;
+    let commentsUnsub = null;
+    let viewCounted = new Set(JSON.parse(sessionStorage.getItem("ld_viewed") || "[]"));
+
+    async function loadDrama(id) {
+      currentDramaId = id;
+      const page = document.getElementById("page-detail");
+      page.innerHTML = `<div class="center-loader"><div class="spinner lg"></div><span>${t("loading")}</span></div>`;
+
+      // stop any previous comment listener
+      if (commentsUnsub) { commentsUnsub(); commentsUnsub = null; }
+
+      let data = null;
+      try {
+        const ref = doc(db, "dramas", id);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          data = snap.data();
+        } else {
+          // Seed from catalog if we know this id, else Not Found
+          const seedItem = CATALOG.find(c => c.id === id) || FRANCHISES.find(f => f.id === id);
+          if (seedItem) {
+            const catItem = CATALOG.find(c => c.id === id) || CATALOG.find(c => c.id === seedItem.id) || CATALOG[0];
+            data = buildSeedDrama(catItem);
+            // Best-effort create the doc so likes/comments/views persist.
+            try { await setDoc(ref, data); } catch (e) { console.log("[v0] seed write skipped:", e.code || e.message); }
+          }
+        }
+      } catch (err) {
+        console.log("[v0] loadDrama error:", err.code || err.message);
+        // If Firestore is unreachable, still try to render from seed for demo.
+        const catItem = CATALOG.find(c => c.id === id);
+        if (catItem) data = buildSeedDrama(catItem);
+      }
+
+      if (!data) { renderNotFound(); return; }
+      currentDrama = data;
+      currentEp = 1;
+      renderDetail(data, id);
+      incrementView(id);        // efficient, once per session per drama
+      listenComments(id);       // realtime
+    }
+
+    function renderNotFound() {
+      document.getElementById("page-detail").innerHTML = `
+        <div class="empty-state" style="padding-top:70px;">
+          <img src="/empty-state.png" alt=""/>
+          <h3>${t("dramaNotFound")}</h3>
+          <p>${t("dramaNotFoundSub")}</p>
+          <button class="btn btn-primary" onclick="location.hash='#/home'">${t("backHome")}</button>
+        </div>`;
+    }
+
+    function renderDetail(d, id) {
+      const info = d.info || {};
+      const stats = d.stats || { viewsCount:0, likesCount:0, likedByUsers:[], bookmarkedByUsers:[] };
+      const title = LANG === "ku" && info.titleKu ? info.titleKu : info.title;
+      const uid = auth.currentUser ? auth.currentUser.uid : null;
+      const liked = uid && (stats.likedByUsers || []).includes(uid);
+      const bookmarked = uid && (userProfile && (userProfile.favorites||[]).includes(id));
+      const genres = (info.genres || []).map(g => `<span class="genre-chip">${esc(g)}</span>`).join("");
+
+      const page = document.getElementById("page-detail");
+      page.innerHTML = `
+        <div class="detail-hero">
+          <img class="backdrop" src="${esc(info.backdropUrl||"")}" alt="" crossorigin="anonymous" onerror="this.style.opacity=0"/>
+          <div class="hero-content">
+            <div class="hero-poster"><img src="${esc(info.posterUrl||"")}" alt="${esc(title||"")}" crossorigin="anonymous" onerror="this.parentElement.style.display='none'"/></div>
+            <div class="detail-meta">
+              <h1>${esc(title||"—")}</h1>
+              <div class="sub">
+                <span class="rating-badge imdb" style="padding:2px 7px;">IMDb ${info.rating||"—"}</span>
+                <span>${esc(info.year||"")}</span>
+                ${info.maturityRating?`<span class="genre-chip">${esc(info.maturityRating)}</span>`:""}
+                ${info.quality?`<span class="genre-chip">${esc(info.quality)}</span>`:""}
+              </div>
+              <div class="sub" style="margin-top:8px;">${genres}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-wrap" id="playerWrap">
+          <div class="player-placeholder" id="playerPlaceholder">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+            <span>${t("selectEpisode")}</span>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button class="action-btn like ${liked?"active":""}" id="likeBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="${liked?"currentColor":"none"}" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            <span data-i18n="like">${t("like")}</span>
+            <span id="likeCount">${stats.likesCount||0}</span>
+          </button>
+          <button class="action-btn bookmark ${bookmarked?"active":""}" id="bookmarkBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="${bookmarked?"currentColor":"none"}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <span data-i18n="bookmark">${t("bookmark")}</span>
+          </button>
+          <button class="action-btn share" id="shareBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg>
+            <span data-i18n="share">${t("share")}</span>
+          </button>
+          <span class="action-btn" style="cursor:default;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span id="viewCount">${stats.viewsCount||0}</span> <span>${t("views")}</span>
+          </span>
+        </div>
+
+        <button class="watch-cta" id="watchCta">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+          ${t("watch")}
+        </button>
+
+        <div class="synopsis clamped" id="synopsis">
+          <p>${esc(info.description||"")}</p>
+        </div>
+        <button class="read-more" id="readMoreBtn">${t("readMore")}</button>
+
+        <div class="section-title"><h2>${t("episodes")}</h2></div>
+        <div class="ep-grid" id="epGrid"></div>
+
+        <div class="section-title" style="margin-top:30px;"><h2>${t("comments")}</h2></div>
+        <div id="commentSection"></div>
+      `;
+
+      renderEpisodes(d.episodes || []);
+      renderCommentComposer(id);
+      wireDetailActions(id);
+    }
+
+    function renderEpisodes(episodes) {
+      const grid = document.getElementById("epGrid");
+      if (!episodes.length) { grid.innerHTML = `<p style="color:var(--text-dim)">—</p>`; return; }
+      grid.innerHTML = episodes.map(ep =>
+        `<button class="ep-btn ${ep.epNumber===currentEp?"active":""}" data-ep="${ep.epNumber}">${ep.epNumber}</button>`
+      ).join("");
+      grid.querySelectorAll("[data-ep]").forEach(b => b.addEventListener("click", () => playEpisode(parseInt(b.dataset.ep,10))));
+    }
+
+    function playEpisode(n) {
+      const ep = (currentDrama.episodes||[]).find(e => e.epNumber === n);
+      if (!ep) return;
+      currentEp = n;
+      // Update episode active state
+      document.querySelectorAll("#epGrid [data-ep]").forEach(b => b.classList.toggle("active", parseInt(b.dataset.ep,10)===n));
+      // Swap iframe src WITHOUT page reload
+      const wrap = document.getElementById("playerWrap");
+      wrap.innerHTML = `<iframe src="${esc(ep.embedUrl)}" title="${t("episode")} ${n}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+      // Update URL state (hash) without reloading
+      history.replaceState(null, "", `#/drama/${encodeURIComponent(currentDramaId)}`);
+    }
+
+    function wireDetailActions(id) {
+      // Read more toggle
+      const syn = document.getElementById("synopsis");
+      const rm = document.getElementById("readMoreBtn");
+      rm.addEventListener("click", () => {
+        syn.classList.toggle("clamped");
+        rm.textContent = syn.classList.contains("clamped") ? t("readMore") : t("readLess");
+      });
+      // Watch CTA -> play episode 1
+      document.getElementById("watchCta").addEventListener("click", () => {
+        playEpisode(currentEp || 1);
+        document.getElementById("playerWrap").scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      // Like
+      document.getElementById("likeBtn").addEventListener("click", () => toggleLike(id));
+      // Bookmark
+      document.getElementById("bookmarkBtn").addEventListener("click", () => toggleBookmark(id));
+      // Share
+      document.getElementById("shareBtn").addEventListener("click", () => shareDrama(id));
+    }
+
+    /* =================================================================
+       VIEW COUNTER  (once per session per drama)
+       ================================================================= */
+    async function incrementView(id) {
+      if (viewCounted.has(id)) return;
+      viewCounted.add(id);
+      sessionStorage.setItem("ld_viewed", JSON.stringify([...viewCounted]));
+      try {
+        await updateDoc(doc(db, "dramas", id), { "stats.viewsCount": increment(1) });
+        const vc = document.getElementById("viewCount");
+        if (vc) vc.textContent = (parseInt(vc.textContent||"0",10) + 1);
+      } catch (e) { console.log("[v0] view increment skipped:", e.code||e.message); }
+    }
+
+    /* =================================================================
+       LIKE SYSTEM (user-specific, atomic, no duplicates)
+       ================================================================= */
+    let likeBusy = false;
+    async function toggleLike(id) {
+      if (!auth.currentUser) { openAuth("login"); return; }
+      if (likeBusy) return; likeBusy = true;
+      const btn = document.getElementById("likeBtn");
+      const uid = auth.currentUser.uid;
+      const wasLiked = btn.classList.contains("active");
+      const countEl = document.getElementById("likeCount");
+      // Optimistic UI
+      btn.classList.toggle("active");
+      btn.querySelector("svg").setAttribute("fill", wasLiked ? "none" : "currentColor");
+      countEl.textContent = Math.max(0, parseInt(countEl.textContent||"0",10) + (wasLiked ? -1 : 1));
+      try {
+        await updateDoc(doc(db, "dramas", id), {
+          "stats.likedByUsers": wasLiked ? arrayRemove(uid) : arrayUnion(uid),
+          "stats.likesCount": increment(wasLiked ? -1 : 1)
+        });
+        // keep local copy in sync
+        currentDrama.stats.likedByUsers = currentDrama.stats.likedByUsers || [];
+        if (wasLiked) currentDrama.stats.likedByUsers = currentDrama.stats.likedByUsers.filter(u=>u!==uid);
+        else currentDrama.stats.likedByUsers.push(uid);
+      } catch (e) {
+        // rollback
+        btn.classList.toggle("active");
+        btn.querySelector("svg").setAttribute("fill", wasLiked ? "currentColor" : "none");
+        countEl.textContent = Math.max(0, parseInt(countEl.textContent||"0",10) + (wasLiked ? 1 : -1));
+        toast(friendlyError(e), "error");
+      } finally { likeBusy = false; }
+    }
+
+    /* =================================================================
+       BOOKMARK SYSTEM (users/{uid}.favorites + drama bookmarkedByUsers)
+       ================================================================= */
+    let bmBusy = false;
+    async function toggleBookmark(id) {
+      if (!auth.currentUser) { openAuth("login"); return; }
+      if (bmBusy) return; bmBusy = true;
+      const btn = document.getElementById("bookmarkBtn");
+      const uid = auth.currentUser.uid;
+      const wasSaved = btn.classList.contains("active");
+      btn.classList.toggle("active");
+      btn.querySelector("svg").setAttribute("fill", wasSaved ? "none" : "currentColor");
+      try {
+        const batch = writeBatch(db);
+        batch.update(doc(db, "users", uid), { favorites: wasSaved ? arrayRemove(id) : arrayUnion(id) });
+        batch.update(doc(db, "dramas", id), { "stats.bookmarkedByUsers": wasSaved ? arrayRemove(uid) : arrayUnion(uid) });
+        await batch.commit();
+        if (userProfile) {
+          userProfile.favorites = userProfile.favorites || [];
+          if (wasSaved) userProfile.favorites = userProfile.favorites.filter(x=>x!==id);
+          else userProfile.favorites.push(id);
+        }
+        toast(wasSaved ? "—" : t("savedOk"), "success");
+      } catch (e) {
+        btn.classList.toggle("active");
+        btn.querySelector("svg").setAttribute("fill", wasSaved ? "currentColor" : "none");
+        toast(friendlyError(e), "error");
+      } finally { bmBusy = false; }
+    }
+
+    /* =================================================================
+       SHARE
+       ================================================================= */
+    async function shareDrama(id) {
+      const url = location.origin + location.pathname + "#/drama/" + encodeURIComponent(id);
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          // Fallback
+          const ta = document.createElement("textarea");
+          ta.value = url; ta.style.position="fixed"; ta.style.opacity="0";
+          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
+        }
+        toast(t("linkCopied"), "success");
+      } catch (e) { toast(url, "success"); }
+    }
+
+    /* =================================================================
+       COMMENTS SYSTEM (realtime onSnapshot, addDoc, sanitized)
+       ================================================================= */
+    function renderCommentComposer(id) {
+      const section = document.getElementById("commentSection");
+      const signedIn = !!auth.currentUser;
+      const avatarUrl = auth.currentUser && auth.currentUser.photoURL;
+      const initial = (userProfile && userProfile.displayName ? userProfile.displayName : (auth.currentUser && auth.currentUser.displayName) || "?").charAt(0).toUpperCase();
+      section.innerHTML = `
+        ${signedIn ? `
+          <div class="comment-form">
+            <div class="c-avatar">${avatarUrl?`<img src="${esc(avatarUrl)}" alt="" crossorigin="anonymous"/>`:esc(initial)}</div>
+            <div class="comment-input-wrap">
+              <textarea id="commentInput" rows="1" maxlength="1000" placeholder="${t("writeComment")}"></textarea>
+              <button class="comment-submit" id="commentSubmit">${t("send")}</button>
+            </div>
+          </div>` : `
+          <div class="empty-state" style="padding:24px;">
+            <p>${t("loginToComment")}</p>
+            <button class="btn btn-primary" id="commentLoginBtn">${t("signIn")}</button>
+          </div>`}
+        <div class="comment-list" id="commentList">
+          <div class="center-loader"><div class="spinner"></div></div>
+        </div>`;
+
+      if (signedIn) {
+        const input = document.getElementById("commentInput");
+        input.addEventListener("input", () => { input.style.height="auto"; input.style.height=Math.min(input.scrollHeight,160)+"px"; });
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent?.isComposing && e.keyCode !== 229) {
+            e.preventDefault(); submitComment(id);
+          }
+        });
+        document.getElementById("commentSubmit").addEventListener("click", () => submitComment(id));
+      } else {
+        document.getElementById("commentLoginBtn").addEventListener("click", () => openAuth("login"));
+      }
+    }
+
+    function listenComments(id) {
+      const q = query(collection(db, "dramas", id, "comments"), orderBy("timestamp", "desc"));
+      commentsUnsub = onSnapshot(q, (snap) => {
+        const list = document.getElementById("commentList");
+        if (!list) return;
+        if (snap.empty) {
+          list.innerHTML = `<div class="empty-state" style="padding:26px;"><img src="/empty-state.png" alt="" style="width:96px;height:96px;"/><p>${t("noComments")}</p></div>`;
+          return;
+        }
+        const rows = [];
+        snap.forEach(docSnap => {
+          const c = docSnap.data();
+          const ts = c.timestamp && c.timestamp.toDate ? c.timestamp.toDate() : new Date();
+          const initial = (c.username||"?").charAt(0).toUpperCase();
+          rows.push(`
+            <div class="comment">
+              <div class="c-avatar">${c.avatar?`<img src="${esc(c.avatar)}" alt="" crossorigin="anonymous"/>`:esc(initial)}</div>
+              <div class="comment-content">
+                <div class="comment-head"><span class="name">${esc(c.username||"User")}</span><span class="time">${timeAgo(ts)}</span></div>
+                <div class="comment-text">${esc(c.text||"")}</div>
+              </div>
+            </div>`);
+        });
+        list.innerHTML = rows.join("");
+      }, (err) => {
+        console.log("[v0] comments listen error:", err.code||err.message);
+        const list = document.getElementById("commentList");
+        if (list) list.innerHTML = `<p style="color:var(--text-dim);padding:20px;">${t("noComments")}</p>`;
+      });
+    }
+
+    let commentBusy = false;
+    async function submitComment(id) {
+      if (!auth.currentUser) { openAuth("login"); return; }
+      const input = document.getElementById("commentInput");
+      const text = (input.value || "").trim();
+      if (!text) { toast(t("commentEmpty"), "error"); return; }
+      if (commentBusy) return; commentBusy = true;
+      const btn = document.getElementById("commentSubmit");
+      btn.disabled = true; btn.innerHTML = `<span class="spinner" style="width:14px;height:14px;"></span>`;
+      try {
+        const uname = (userProfile && userProfile.username) || (userProfile && userProfile.displayName) || auth.currentUser.displayName || "User";
+        await addDoc(collection(db, "dramas", id, "comments"), {
+          uid: auth.currentUser.uid,
+          username: uname,
+          avatar: auth.currentUser.photoURL || "",
+          text: text,                        // stored raw; ALWAYS rendered via esc()
+          timestamp: serverTimestamp()
+        });
+        input.value = ""; input.style.height = "auto";
+      } catch (e) {
+        toast(friendlyError(e), "error");
+      } finally {
+        commentBusy = false; btn.disabled = false; btn.textContent = t("send");
+      }
+    }
+
+    /* =================================================================
+       AUTHENTICATION
+       ================================================================= */
+    let userProfile = null;   // Firestore users/{uid} document
+    let authMode = "login";   // login | register | reset
+
+    const authModal   = document.getElementById("authModal");
+    const authForm    = document.getElementById("authForm");
+    const authError   = document.getElementById("authError");
+    const authSuccess = document.getElementById("authSuccess");
+
+    function openAuth(mode) {
+      authMode = mode;
+      clearAuthMsg();
+      authForm.reset();
+      const title = document.getElementById("authTitle");
+      const sub   = document.getElementById("authSub");
+      const submit= document.getElementById("authSubmit");
+      const nameField = document.getElementById("nameField");
+      const passField = document.getElementById("passField");
+      const forgotRow = document.getElementById("forgotRow");
+      const googleBtn = document.getElementById("googleBtn");
+      const divider   = authModal.querySelector(".divider");
+      const switchP   = document.getElementById("authSwitch");
+
+      nameField.classList.toggle("hidden", mode !== "register");
+      passField.classList.toggle("hidden", mode === "reset");
+      forgotRow.classList.toggle("hidden", mode !== "login");
+      googleBtn.classList.toggle("hidden", mode === "reset");
+      divider.classList.toggle("hidden", mode === "reset");
+
+      if (mode === "login") {
+        title.textContent = t("loginTitle"); sub.textContent = t("loginSub"); submit.textContent = t("login");
+        switchP.innerHTML = `${t("noAccount")} <button type="button" data-mode="register">${t("signUp")}</button>`;
+      } else if (mode === "register") {
+        title.textContent = t("registerTitle"); sub.textContent = t("registerSub"); submit.textContent = t("register");
+        switchP.innerHTML = `${t("haveAccount")} <button type="button" data-mode="login">${t("signIn")}</button>`;
+      } else {
+        title.textContent = t("forgotPassword"); sub.textContent = t("email"); submit.textContent = t("send");
+        switchP.innerHTML = `${t("haveAccount")} <button type="button" data-mode="login">${t("signIn")}</button>`;
+      }
+      switchP.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => openAuth(b.dataset.mode)));
+      authModal.classList.add("open");
+    }
+    function closeAuth() { authModal.classList.remove("open"); }
+    function clearAuthMsg() { authError.classList.remove("show"); authSuccess.classList.remove("show"); }
+    function showAuthError(msg) { authError.textContent = msg; authError.classList.add("show"); authSuccess.classList.remove("show"); }
+    function showAuthSuccess(msg) { authSuccess.textContent = msg; authSuccess.classList.add("show"); authError.classList.remove("show"); }
+
+    authForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearAuthMsg();
+      const email = document.getElementById("authEmail").value.trim();
+      const pass  = document.getElementById("authPass").value;
+      const name  = document.getElementById("authName").value.trim();
+      const submit = document.getElementById("authSubmit");
+      const orig = submit.textContent;
+      submit.disabled = true; submit.innerHTML = `<span class="spinner" style="width:16px;height:16px;"></span>`;
+      try {
+        if (authMode === "login") {
+          await signInWithEmailAndPassword(auth, email, pass);
+          closeAuth();
+        } else if (authMode === "register") {
+          const cred = await createUserWithEmailAndPassword(auth, email, pass);
+          if (name) await updateProfile(cred.user, { displayName: name });
+          await ensureUserDoc(cred.user, { displayName: name });
+          closeAuth();
+        } else if (authMode === "reset") {
+          await sendPasswordResetEmail(auth, email);
+          showAuthSuccess(t("resetSent"));
+        }
+      } catch (err) {
+        showAuthError(friendlyError(err));
+      } finally {
+        submit.disabled = false; submit.textContent = orig;
+      }
+    });
+
+    document.getElementById("googleBtn").addEventListener("click", async () => {
+      clearAuthMsg();
+      const btn = document.getElementById("googleBtn");
+      btn.disabled = true;
+      try {
+        const res = await signInWithPopup(auth, googleProvider);
+        await ensureUserDoc(res.user, {});
+        closeAuth();
+      } catch (err) {
+        showAuthError(friendlyError(err));
+      } finally { btn.disabled = false; }
+    });
+
+    document.getElementById("forgotBtn").addEventListener("click", () => openAuth("reset"));
+    document.getElementById("authClose").addEventListener("click", closeAuth);
+    authModal.addEventListener("click", (e) => { if (e.target === authModal) closeAuth(); });
+
+    /* Create Firestore user doc if it doesn't already exist (keep existing data) */
+    async function ensureUserDoc(user, extra) {
+      const ref = doc(db, "users", user.uid);
+      try {
+        const snap = await getDoc(ref);
+        if (!snap.exists()) {
+          const base = {
+            uid: user.uid,
+            displayName: extra.displayName || user.displayName || "User",
+            username: (user.email ? user.email.split("@")[0] : "user").replace(/[^a-z0-9_]/gi,"").toLowerCase() || "user",
+            email: user.email || "",
+            bio: "",
+            photoURL: user.photoURL || "",
+            coverURL: "",
+            favorites: [],
+            watchLater: []
+          };
+          await setDoc(ref, base);
+          userProfile = base;
+        } else {
+          userProfile = snap.data();
+        }
+      } catch (e) {
+        console.log("[v0] ensureUserDoc error:", e.code||e.message);
+        // Fallback minimal profile so UI still works offline
+        userProfile = { uid:user.uid, displayName:user.displayName||"User", username:(user.email||"user").split("@")[0], email:user.email||"", bio:"", photoURL:user.photoURL||"", coverURL:"", favorites:[], watchLater:[] };
+      }
+    }
+
+    /* Auth state listener — toggles signed-in / signed-out UI */
+    onAuthStateChanged(auth, async (user) => {
+      const avatarInitial = document.getElementById("avatarInitial");
+      const avatarBtn = document.getElementById("avatarBtn");
+      if (user) {
+        await ensureUserDoc(user, {});
+        const label = (userProfile.displayName || "U").charAt(0).toUpperCase();
+        avatarBtn.innerHTML = user.photoURL
+          ? `<img src="${esc(user.photoURL)}" alt="${esc(userProfile.displayName)}" crossorigin="anonymous"/>`
+          : `<span>${esc(label)}</span>`;
+      } else {
+        userProfile = null;
+        avatarBtn.innerHTML = `<span>G</span>`;
+      }
+      // Re-render whatever is on screen so auth-dependent UI updates
+      handleRoute();
+      hideBoot();
+    });
+
+    /* Avatar button: profile if signed in, else login modal */
+    document.getElementById("avatarBtn").addEventListener("click", () => {
+      if (auth.currentUser) navigate("profile"); else openAuth("login");
+    });
+
+    /* =================================================================
+       PROFILE SYSTEM
+       ================================================================= */
+    let profileTab = "favorites";
+    async function renderProfile() {
+      const page = document.getElementById("page-profile");
+      if (!auth.currentUser) {
+        page.innerHTML = `
+          <div class="empty-state" style="padding-top:70px;">
+            <img src="/empty-state.png" alt=""/>
+            <h3>${t("signInRequired")}</h3>
+            <p>${t("signInRequiredSub")}</p>
+            <button class="btn btn-primary" id="profileLoginBtn">${t("signIn")}</button>
+          </div>`;
+        document.getElementById("profileLoginBtn").addEventListener("click", () => openAuth("login"));
+        return;
+      }
+      const p = userProfile || {};
+      const initial = (p.displayName || "U").charAt(0).toUpperCase();
+      page.innerHTML = `
+        <div class="profile-banner">${p.coverURL?`<img src="${esc(p.coverURL)}" alt="" crossorigin="anonymous"/>`:""}</div>
+        <div class="profile-head">
+          <div class="profile-avatar">${p.photoURL?`<img src="${esc(p.photoURL)}" alt="" crossorigin="anonymous"/>`:esc(initial)}</div>
+          <div class="profile-info">
+            <h2>${esc(p.displayName||"User")}</h2>
+            <div class="username">@${esc(p.username||"user")}</div>
+            ${p.bio?`<div class="bio">${esc(p.bio)}</div>`:""}
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button class="btn btn-ghost" id="editAccountBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+            ${t("editAccount")}
+          </button>
+          <button class="btn btn-ghost" id="logoutBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            ${t("logout")}
+          </button>
+        </div>
+
+        <div class="profile-tabs" id="profileTabs">
+          <button class="profile-tab" data-tab="favorites">${t("favorites")}</button>
+          <button class="profile-tab" data-tab="watchLater">${t("watchLater")}</button>
+          <button class="profile-tab" data-tab="reviews">${t("myReviews")}</button>
+          <button class="profile-tab" data-tab="following">${t("following")}</button>
+        </div>
+        <div id="profileTabContent" style="margin-top:16px;"></div>
+      `;
+      document.getElementById("editAccountBtn").addEventListener("click", () => navigate("settings"));
+      document.getElementById("logoutBtn").addEventListener("click", async () => { await signOut(auth); navigate("home"); });
+      const tabsEl = document.getElementById("profileTabs");
+      tabsEl.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => { profileTab = b.dataset.tab; renderProfileTab(); }));
+      renderProfileTab();
+    }
+
+    function renderProfileTab() {
+      document.querySelectorAll("#profileTabs [data-tab]").forEach(b => b.classList.toggle("active", b.dataset.tab === profileTab));
+      const content = document.getElementById("profileTabContent");
+      if (profileTab === "favorites") {
+        const favIds = (userProfile && userProfile.favorites) || [];
+        const items = CATALOG.filter(c => favIds.includes(c.id));
+        if (!items.length) return emptyState(content, "emptyFavTitle", "emptyFavSub");
+        content.innerHTML = `<div class="media-grid"></div>`;
+        renderGrid(content.querySelector(".media-grid"), items);
+      } else if (profileTab === "watchLater") {
+        const ids = (userProfile && userProfile.watchLater) || [];
+        const items = CATALOG.filter(c => ids.includes(c.id));
+        if (!items.length) return emptyState(content, "emptyWatchTitle", "emptyWatchSub");
+        content.innerHTML = `<div class="media-grid"></div>`;
+        renderGrid(content.querySelector(".media-grid"), items);
+      } else if (profileTab === "reviews") {
+        emptyState(content, "emptyReviewTitle", "emptyReviewSub");
+      } else {
+        emptyState(content, "emptyFollowTitle", "emptyFollowSub");
+      }
+    }
+    function emptyState(el, titleKey, subKey) {
+      el.innerHTML = `<div class="empty-state"><img src="/empty-state.png" alt=""/><h3>${t(titleKey)}</h3><p>${t(subKey)}</p></div>`;
+    }
+
+    /* =================================================================
+       SETTINGS (Account info + Security / password)
+       ================================================================= */
+    function renderSettings() {
+      const page = document.getElementById("page-settings");
+      if (!auth.currentUser) {
+        page.innerHTML = `<div class="empty-state" style="padding-top:70px;"><img src="/empty-state.png" alt=""/><h3>${t("signInRequired")}</h3><button class="btn btn-primary" id="setLoginBtn">${t("signIn")}</button></div>`;
+        document.getElementById("setLoginBtn").addEventListener("click", () => openAuth("login"));
+        return;
+      }
+      const p = userProfile || {};
+      const isGoogle = auth.currentUser.providerData.some(pr => pr.providerId === "google.com");
+      const initial = (p.displayName||"U").charAt(0).toUpperCase();
+      page.innerHTML = `
+        <div class="settings-wrap">
+          <div class="section-title"><h2>${t("settings")}</h2></div>
+
+          <!-- Account info -->
+          <div class="settings-card">
+            <h3>${t("accountInfo")}</h3>
+            <p class="card-sub">${t("accountInfoSub")}</p>
+            <div class="upload-row">
+              <div class="upload-zone">
+                <div class="zone-avatar">${p.photoURL?`<img src="${esc(p.photoURL)}" alt="" style="width:100%;height:100%;object-fit:cover;" crossorigin="anonymous"/>`:esc(initial)}</div>
+                <span class="change-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+              </div>
+              <div class="upload-zone cover">
+                <div class="zone-cover">${p.coverURL?`<img src="${esc(p.coverURL)}" alt="" style="width:100%;height:100%;object-fit:cover;" crossorigin="anonymous"/>`:`<span style="color:var(--text-dimmer);font-size:12px;">${t("cover")}</span>`}</div>
+                <span class="change-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+              </div>
+            </div>
+            <form id="profileForm">
+              <div class="field">
+                <label>${t("displayName")}</label>
+                <input type="text" id="setName" value="${esc(p.displayName||"")}" />
+              </div>
+              <div class="field">
+                <label>${t("username")}</label>
+                <input type="text" id="setUsername" value="${esc(p.username||"")}" pattern="[a-z0-9_]+" />
+                <div class="helper">${t("usernameHelper")}</div>
+              </div>
+              <div class="field">
+                <label>${t("email")}</label>
+                <input type="email" value="${esc(p.email||"")}" disabled />
+                ${isGoogle?`<div class="helper locked">${t("emailLocked")}</div>`:""}
+              </div>
+              <div class="field">
+                <label>${t("bio")}</label>
+                <textarea id="setBio" rows="3">${esc(p.bio||"")}</textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" id="saveProfileBtn">${t("saveChanges")}</button>
+            </form>
+          </div>
+
+          <!-- Security / password -->
+          <div class="settings-card">
+            <h3>${t("security")}</h3>
+            <p class="card-sub">${t("securitySub")}</p>
+            ${isGoogle ? `<p style="color:var(--text-dim);font-size:13px;">${t("emailLocked")}</p>` : `
+            <form id="passwordForm">
+              <div class="field"><label>${t("currentPassword")}</label><input type="password" id="curPass" autocomplete="current-password" /></div>
+              <div class="field"><label>${t("newPassword")}</label><input type="password" id="newPass" autocomplete="new-password" /></div>
+              <div class="field"><label>${t("confirmPassword")}</label><input type="password" id="confPass" autocomplete="new-password" /></div>
+              <button type="submit" class="btn btn-primary" id="savePassBtn">${t("saveChanges")}</button>
+            </form>`}
+          </div>
+        </div>`;
+
+      // Save profile info
+      document.getElementById("profileForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById("saveProfileBtn");
+        btn.disabled = true; const orig = btn.textContent; btn.innerHTML = `<span class="spinner" style="width:16px;height:16px;"></span>`;
+        try {
+          const name = document.getElementById("setName").value.trim();
+          const username = document.getElementById("setUsername").value.trim().toLowerCase().replace(/[^a-z0-9_]/g,"");
+          const bio = document.getElementById("setBio").value.trim();
+          await updateDoc(doc(db, "users", auth.currentUser.uid), { displayName: name, username, bio });
+          if (name && name !== auth.currentUser.displayName) await updateProfile(auth.currentUser, { displayName: name });
+          userProfile = { ...userProfile, displayName: name, username, bio };
+          toast(t("profileUpdated"), "success");
+          onAuthAvatarRefresh();
+        } catch (err) { toast(friendlyError(err), "error"); }
+        finally { btn.disabled = false; btn.textContent = orig; }
+      });
+
+      // Change password (reauth then update)
+      const pf = document.getElementById("passwordForm");
+      if (pf) pf.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById("savePassBtn");
+        const cur = document.getElementById("curPass").value;
+        const np  = document.getElementById("newPass").value;
+        const cp  = document.getElementById("confPass").value;
+        if (np !== cp) { toast(t("passMismatch"), "error"); return; }
+        btn.disabled = true; const orig = btn.textContent; btn.innerHTML = `<span class="spinner" style="width:16px;height:16px;"></span>`;
+        try {
+          const cred = EmailAuthProvider.credential(auth.currentUser.email, cur);
+          await reauthenticateWithCredential(auth.currentUser, cred);
+          await updatePassword(auth.currentUser, np);
+          toast(t("passwordUpdated"), "success");
+          pf.reset();
+        } catch (err) { toast(friendlyError(err), "error"); }
+        finally { btn.disabled = false; btn.textContent = orig; }
+      });
+    }
+    function onAuthAvatarRefresh() {
+      const avatarBtn = document.getElementById("avatarBtn");
+      const label = (userProfile.displayName||"U").charAt(0).toUpperCase();
+      if (!auth.currentUser.photoURL) avatarBtn.innerHTML = `<span>${esc(label)}</span>`;
+    }
+
+    /* =================================================================
+       ROUTER DISPATCH
+       ================================================================= */
+    function handleRoute() {
+      const { page, id } = currentRoute();
+      highlightNav();
+      switch (page) {
+        case "home": showPage("home"); renderHome(); break;
+        case "movies": showPage("movies"); renderMovies(); break;
+        case "series": showPage("series"); renderSeries(); break;
+        case "manga": showPage("manga"); renderManga(); break;
+        case "franchises": showPage("franchises"); renderFranchisesPage(); break;
+        case "detail": showPage("detail"); if (id) loadDrama(id); else renderNotFound(); break;
+        case "profile": showPage("profile"); renderProfile(); break;
+        case "settings": showPage("settings"); renderSettings(); break;
+        case "top250": case "reviews": case "staff": case "about":
+          showPage("generic"); renderGeneric(); break;
+        default: showPage("home"); renderHome();
+      }
+      closeDrawer();
+    }
+    window.addEventListener("hashchange", handleRoute);
+
+    /* =================================================================
+       DRAWER + HEADER WIRING
+       ================================================================= */
+    const drawer = document.getElementById("drawer");
+    const drawerOverlay = document.getElementById("drawerOverlay");
+    function openDrawer() { drawer.classList.add("open"); drawerOverlay.classList.add("open"); }
+    function closeDrawer() { drawer.classList.remove("open"); drawerOverlay.classList.remove("open"); }
+    document.getElementById("hamburgerBtn").addEventListener("click", openDrawer);
+    document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+    drawerOverlay.addEventListener("click", closeDrawer);
+
+    // Bottom nav
+    document.getElementById("bottomNav").querySelectorAll("[data-nav]").forEach(b =>
+      b.addEventListener("click", () => navigate(b.dataset.nav)));
+
+    // Header extra buttons (search / notif / vip -> gentle placeholders)
+    document.getElementById("searchBtn").addEventListener("click", () => toast(t("genericSoon"), "success"));
+    document.getElementById("notifBtn").addEventListener("click", () => toast(t("genericSoon"), "success"));
+    document.getElementById("vipBtn").addEventListener("click", () => toast("👑 VIP — " + t("genericSoon"), "success"));
+
+    // Language toggle
+    document.getElementById("langKu").addEventListener("click", () => { LANG = "ku"; applyLanguage(); });
+    document.getElementById("langEn").addEventListener("click", () => { LANG = "en"; applyLanguage(); });
+
+    /* =================================================================
+       UTILITIES
+       ================================================================= */
+    // Safe HTML escaping — used for ALL user-generated content
+    function esc(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function timeAgo(date) {
+      const s = Math.floor((Date.now() - date.getTime()) / 1000);
+      if (s < 60) return t("now");
+      const m = Math.floor(s/60); if (m < 60) return m + " " + t("minAgo");
+      const h = Math.floor(m/60); if (h < 24) return h + " " + t("hourAgo");
+      const d = Math.floor(h/24); return d + " " + t("dayAgo");
+    }
+
+    // Friendly bilingual error messages (never expose raw Firebase codes)
+    function friendlyError(err) {
+      const code = (err && err.code) || "";
+      const map = {
+        ku: {
+          "auth/invalid-email": "ئیمەیڵ نادروستە",
+          "auth/user-not-found": "بەکارهێنەر نەدۆزرایەوە",
+          "auth/wrong-password": "وشەی نهێنی هەڵەیە",
+          "auth/invalid-credential": "زانیاری چوونەژوورەوە هەڵەیە",
+          "auth/email-already-in-use": "ئەم ئیمەیڵە پێشتر بەکارهاتووە",
+          "auth/weak-password": "وشەی نهێنی لاوازە (لانیکەم ٦ پیت)",
+          "auth/popup-closed-by-user": "پەنجەرەی چوونەژوورەوە داخرا",
+          "auth/network-request-failed": "کێشەی ئینتەرنێت هەیە",
+          "auth/too-many-requests": "هەوڵی زۆر — تکایە دواتر هەوڵبدەوە",
+          "permission-denied": "ڕێگەت پێنەدراوە بۆ ئەم کارە",
+        },
+        en: {
+          "auth/invalid-email": "Invalid email address",
+          "auth/user-not-found": "No account found",
+          "auth/wrong-password": "Incorrect password",
+          "auth/invalid-credential": "Invalid login credentials",
+          "auth/email-already-in-use": "This email is already in use",
+          "auth/weak-password": "Password too weak (min 6 characters)",
+          "auth/popup-closed-by-user": "Sign-in popup was closed",
+          "auth/network-request-failed": "Network error — check your connection",
+          "auth/too-many-requests": "Too many attempts — try again later",
+          "permission-denied": "You don't have permission to do that",
+        }
+      };
+      return (map[LANG] && map[LANG][code]) || (LANG==="ku" ? "هەڵەیەک ڕوویدا، تکایە دووبارە هەوڵبدەوە" : "Something went wrong, please try again");
+    }
+
+    // Toast notifications
+    let toastTimer = null;
+    function toast(msg, type) {
+      const wrap = document.getElementById("toastWrap");
+      const el = document.createElement("div");
+      el.className = "toast " + (type||"");
+      const icon = type === "success"
+        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+        : type === "error"
+        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`
+        : "";
+      el.innerHTML = icon + `<span>${esc(msg)}</span>`;
+      wrap.appendChild(el);
+      setTimeout(() => { el.style.opacity = "0"; el.style.transition="opacity .3s"; setTimeout(()=>el.remove(), 300); }, 2400);
+    }
+
+    function hideBoot() {
+      const boot = document.getElementById("boot");
+      if (!boot || boot.dataset.done) return;
+      boot.dataset.done = "1";
+      boot.style.opacity = "0";
+      setTimeout(() => boot.remove(), 400);
+    }
+
+    /* =================================================================
+       INIT
+       ================================================================= */
+    applyLanguage();     // sets dir, labels, builds nav, and runs handleRoute()
+    // Safety: if auth listener is slow, hide boot after 3.5s anyway
+    setTimeout(hideBoot, 3500);
+  </script>
+</body>
+</html>
